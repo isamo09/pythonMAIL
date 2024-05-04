@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Widget</title>
+    <style>
+        /* Стили для рамки вокруг виджета */
+        .widget-frame {
+            border: 2px solid #000; /* Черная рамка */
+            padding: 10px; /* Отступ внутри рамки */
+            margin: 10px; /* Отступ вокруг рамки */
+            width: 300px; /* Ширина рамки */
+            height: 200px; /* Высота рамки */
+            overflow: auto; /* Добавляет полосы прокрутки, если контент превышает размер рамки */
+        }
+    </style>
+</head>
+<body>
+    <div id="emailWidget" class="widget-frame">
+        <p>Загрузка...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='widget.js') }}"></script>
+</body>
+</html>

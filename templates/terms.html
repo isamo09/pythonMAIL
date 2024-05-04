@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Правила использования</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        .terms-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            height: 400px; /* Adjust the height as needed */
+            perspective: 115px; /* Add perspective */
+            transform: rotateX(37deg) rotateY(20deg); /* Apply 3D rotation */
+            transform-style: preserve-3d; /* Preserve 3D transformations */
+        }
+        .terms-container p {
+            font-size: 1.2em; /* Increase text size */
+        }
+    </style>
+</head>
+<body>
+    <h1>Правила использования</h1>
+    <div class="terms-container">
+        <p>Здесь должны быть правила использования. Но их здесь по непонятной причине нет, к сожалению на локальном почтовом сервере на данный момент существует только список запрещенных слов.</p>
+        <!-- Add more paragraphs or text as needed -->
+        <img src="/static/treams.gif" alt="Тремя" style="display: block; margin: 20px auto;">
+    </div>
+    <br>
+    <a href="javascript:history.back()">Назад</a>
+</body>
+</html>

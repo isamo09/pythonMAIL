@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удаление письма</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <h1>Удаление письма</h1>
+    <p>Вы уверены, что хотите удалить это письмо?</p>
+    <form action="/delete_email/{{ email_id }}" method="POST">
+        <input type="submit" value="Удалить">
+    </form>
+    <a href="/inbox">Отмена</a>
+</body>
+</html>

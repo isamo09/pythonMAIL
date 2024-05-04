@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Входящие письма</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .email {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .container {
+            display: flex;
+            height: 100vh; /* Занимает всю высоту окна */
+            width: 100vw; /* Занимает всю ширину окна */
+            padding: 0 10px; /* Устанавливаем меньшие отступы справа и слева */
+            box-sizing: border-box; /* Учитываем padding в общей ширине элемента */
+        }
+        .emails-list {
+            width: 50%;
+            overflow-y: auto; /* Добавляет прокрутку, если письма превышают высоту окна */
+        }
+        .email-details {
+            width: 50%;
+            perspective: 115px;
+            transform: rotateX(31deg) rotateY(7deg);
+            transform-style: preserve-3d;
+            filter: drop-shadow(34px 27px 6px #000000);
+            overflow-y: auto; /* Добавляет прокрутку, если детали письма превышают высоту окна */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Локальная почтовая система</h1>
+        <nav>
+            {% if 'user_id' in session %}
+                <a href="/">Главная</a>
+                <a href="/compose">Написать письмо</a>
+                <a href="/sent">Отправленные</a>
+                <a href="/settings">Настройки</a>
+                <a href="/logout">Выйти</a>
+            {% else %}
+                <a href="/register">Зарегистрироваться</a>
+                <a href="/login">Войти</a>
+            {% endif %}
+        </nav>
+    </header>
+    <div class="container">
+        <div class="emails-list">
+            <h1>Входящие письма</h1>
+            <div id="emailsContainer">
+                <!-- Письма будут загружаться здесь -->
+            </div>
+        </div>
+        <div class="email-details" id="emailDetails">
+            <!-- Здесь будет отображаться выбранное письмо -->
+        </div>
+    </div>
+    <div id="emailWidget">
+        <p>Загрузка...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='widget.js') }}"></script>
+    <script src="{{ url_for('static', filename='widget.js') }}"></script>
+    <script>
+        function updateEmails() {
+            fetch('/update_emails')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('emailsContainer').innerHTML = data;
+                });
+        }
+
+        function showEmailDetails(emailId) {
+            fetch('/view_email/' + emailId)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('emailDetails').innerHTML = data + '<a href="/view_email/' + emailId + '">Просмотреть</a><a href="/delete_email/' + emailId + '">Удалить</a>';
+                });
+        }
+
+        // Загружаем письма сразу при загрузке страницы
+        window.onload = updateEmails;
+
+        // Обновляем список сообщений каждые 3 секунды
+        setInterval(updateEmails, 3000);
+    </script>
+</body>
+</html>

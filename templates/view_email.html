@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Просмотр письма</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        .email {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email">
+        <h1>Просмотр письма</h1>
+        <h3>Отправитель: {{ email[0] }}</h3>
+        <h4>Тема: {{ email[1] }}</h4>
+        <p>{{ email[2] }}</p>
+        <a href="/inbox">Назад к письмам</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Написать письмо</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+        <a href="/">Главная</a>
+    <div class="container">
+        <h1>Написать письмо</h1>
+        <form action="/compose" method="POST">
+            <label for="receiver_email">Получатель:</label>
+            <input type="email" id="receiver_email" name="receiver_email" required><br><br>
+            <label for="subject">Тема:</label>
+            <input type="text" id="subject" name="subject" required><br><br>
+            <label for="message">Сообщение:</label><br>
+            <textarea id="message" name="message" rows="4" cols="50" required></textarea><br><br>
+            <input type="submit" value="Отправить">
+        </form>
+    </div>
+    <div id="emailWidget">
+        <p>Загрузка...</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='widget.js') }}"></script>
+</body>
+</html>

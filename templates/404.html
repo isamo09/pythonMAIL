@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>404 - Страница не найдена</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            perspective: 115px;
+            transform: rotateX(31deg) rotateY(7deg);
+            transform-style: preserve-3d;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .content-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .content-box p {
+            filter: drop-shadow(34px 27px 4px #000000);
+        }
+    </style>
+</head>
+<body>
+    <div class="content-box">
+        <h1>404 - Запрашиваемый адрес не существует</h1>
+        <img src="{{ url_for('static', filename='404.gif') }}" style="width: 40%;">
+        <p>Запрашиваемой страницы не существует</p>
+        <a href="/">Главная</a>
+
+        <!-- Вставка виджета -->
+        <div id="emailWidget">
+            <p>Загрузка...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='widget.js') }}"></script>
+</body>
+</html>

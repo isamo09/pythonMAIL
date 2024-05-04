@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .register-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        .register-container h1 {
+            text-align: center;
+        }
+        .register-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .register-container label {
+            margin-bottom: 5px;
+        }
+        .register-container input[type="submit"] {
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function validateEmail() {
+            var email = document.getElementById('email').value;
+            var pattern = /^[A-Za-z0-9_-]+@mail+\.[A-Za-z]{2,6}$/;
+            if (!pattern.test(email)) {
+                alert("Пожалуйста, введите корректный адрес электронной почты.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Регистрация</h1>
+        <form action="/register" method="POST" onsubmit="return validateEmail();">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="email">Почтовый адрес:</label>
+            <input type="email" id="email" name="email" placeholder="user@mail.ru" required><br><br>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="checkbox" id="agree" name="agree" required>
+            <label for="agree">Я ознакомлен с <a href="/terms">правилами использования</a></label><br><br>
+            <input type="submit" value="Зарегистрироваться">
+        </form>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="error-message">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

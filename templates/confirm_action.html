@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Подтверждение действия</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .frame {
+            margin-bottom: 20px;
+            perspective: 115px;
+            transform: rotateX(31deg) rotateY(7deg);
+            transform-style: preserve-3d;
+            border: 2px solid #A9A9A9; /* Рамка вокруг контейнера */
+            padding: 20px; /* Внутренний отступ */
+            margin: 20px; /* Внешний отступ */
+            border-radius: 10px; /* Скругленные углы рамки */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Тень для контейнера */
+            filter: drop-shadow(75px 42px 7px #000000);
+        }
+        button {
+            background-color: #D3D3D3; /* Светло-серый оттенок */
+            border-radius: 10px; /* Закругленные края */
+            border: 1px solid #A9A9A9; /* Граница для контраста */
+            padding: 10px 20px; /* Внутренний отступ */
+            font-size: 16px; /* Размер шрифта */
+            cursor: pointer; /* Изменение курсора при наведении */
+            transition: background-color 0.3s ease; /* Анимация изменения цвета фона */
+        }
+        button:hover {
+            background-color: #C0C0C0; /* Изменение цвета фона при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="frame">
+        <h1>Подтверждение действия</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <form action="/confirm_action/{{ user_id }}/{{ action }}" method="post">
+            <label for="admin_key">Введите ключ администратора:</label>
+            <input type="password" id="admin_key" name="admin_key" required>
+            <input type="submit" value="Подтвердить">
+        </form>
+    </div>
+</body>
+</html>

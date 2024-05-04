@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Настройки аккаунта</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        .frame-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Add a subtle shadow for depth */
+        }
+        .frame-container h1 {
+            text-align: center; /* Center the heading */
+        }
+        .frame-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .frame-container label, .frame-container input[type="submit"] {
+            margin-top: 10px; /* Add some space between form elements */
+        }
+        .frame-container a {
+            display: block;
+            margin-top: 20px; /* Add some space between links */
+            text-align: center; /* Center the links */
+        }
+        .password-change-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .password-change-container label {
+            margin-right: 10px;
+        }
+    </style>
+    <script>
+        function validateEmail() {
+            var email = document.getElementById('new_email').value;
+            var pattern = /^[A-Za-z0-9_-]+@mail+\.[A-Za-z]{2,6}$/;
+            if (!pattern.test(email)) {
+                alert("Пожалуйста, введите корректный адрес электронной почты.");
+                return false;
+            }
+            return true;
+        }
+
+        function togglePasswordField() {
+            var changePasswordCheckbox = document.getElementById('change_password');
+            var newPassword = document.getElementById('new_password');
+            if (changePasswordCheckbox.checked) {
+                newPassword.required = true;
+            } else {
+                newPassword.required = false;
+                newPassword.value = '';
+            }
+        }
+
+        function validateForm() {
+            if (!validateEmail()) {
+                return false;
+            }
+            var changePasswordCheckbox = document.getElementById('change_password');
+            var newPassword = document.getElementById('new_password');
+            if (changePasswordCheckbox.checked && newPassword.value.trim() === '') {
+                alert("Пожалуйста, введите новый пароль.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="frame-container">
+        <a href="/">Главная</a>
+        <h1>Настройки аккаунта</h1>
+        <form action="/settings" method="POST" onsubmit="return validateForm();">
+            <label for="new_username">Имя пользователя:</label>
+            <input type="text" id="new_username" name="new_username" value="{{ user[1] }}" required><br>
+            <label for="new_email">Email:</label>
+            <input type="email" id="new_email" name="new_email" value="{{ user[2] }}" required><br>
+            <div class="password-change-container">
+                <input type="checkbox" id="change_password" name="change_password" onchange="togglePasswordField();">
+                <label for="change_password">Изменить пароль</label>
+                <label for="new_password">Новый пароль:</label>
+                <input type="password" id="new_password" name="new_password"><br>
+            </div>
+            <input type="submit" value="Сохранить изменения">
+        </form>
+        <a href="/delete_account">Удалить аккаунт</a>
+        <a href="/logout">Выйти</a>
+    </div>
+</body>
+</html>

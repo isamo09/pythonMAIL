@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gif</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .gif-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .gif {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="gif-container">
+        <img src="" alt="GIF" class="gif" id="randomGif">
+    </div>
+
+    <script>
+        // Функция для выбора случайного GIF
+        function selectRandomGif() {
+            const gifs = ['/static/ok.gif', '/static/ban.gif', '/static/dedsec.gif', '/static/ded.gif'];
+            const randomIndex = Math.floor(Math.random() * gifs.length);
+            const randomGif = gifs[randomIndex];
+            document.getElementById('randomGif').src = randomGif;
+        }
+
+        // Вызов функции при загрузке страницы
+        window.onload = selectRandomGif;
+    </script>
+</body>
+</html>

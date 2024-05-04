@@ -1,0 +1,8 @@
+{
+ "version": "4.1",
+ "admin_key": "admin_pass",
+ "reg_limit": "3",
+ "reset_reg_counts": true,
+ "admin_page": true,
+ "key": "key"
+}

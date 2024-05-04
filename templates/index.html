@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Локальная почтовая система</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .email-display {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #f9f9f9;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .news-item {
+            margin-bottom: 20px;
+            position: relative;
+            perspective: 115px;
+            border: 1px solid #ccc; /* Добавлено: рамка вокруг каждой новости */
+            border-radius: 5px; /* Добавлено: скругление углов рамки */
+            padding: 10px; /* Добавлено: внутренний отступ внутри рамки */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Добавлено: тень для рамки */
+        }
+        .news-item img {
+            position: absolute;
+            right: 0;
+            top: 0;
+            transform: rotateX(0deg) rotateY(0deg);
+            transform-style: preserve-3d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Добро пожаловать в локальную почмовую систему</h1>
+            <nav>
+                {% if session.get('user_id') %}
+                <!-- User is logged in -->
+                <a href="/inbox">Входящие</a>
+                <a href="/compose">Написать письмо</a>
+                <a href="/sent">Отправленные</a>
+                <a href="/settings">Настройки</a>
+                <a href="/about">О проекте</a>
+                <a href="/logout">Выйти</a>
+                {% else %}
+                <!-- User is not logged in -->
+                <a href="/register">Зарегистрироваться</a>
+                <a href="/login">Войти</a>
+                {% endif %}
+            </nav>
+        </header>
+        <div id="news-container"></div>
+    </div>
+    <!-- Display user's email in the corner -->
+    {% if session.get('user_id') %}
+    <div class="email-display">
+        <p>Ваш email: {{ user_email }}</p>
+    </div>
+    {% endif %}
+
+    <script>
+        fetch('/news')
+            .then(response => response.json())
+            .then(newsItems => {
+                const newsContainer = document.getElementById('news-container');
+                newsItems.forEach(item => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'news-item';
+                    newsItem.innerHTML = `
+                        <div style="transform: rotateX(0deg) rotateY(0deg); transform-style: preserve-3d;">
+                            <p>${item.text}</p>
+                        </div>
+                    `;
+                    newsContainer.appendChild(newsItem);
+                });
+            });
+    </script>
+</body>
+</html>

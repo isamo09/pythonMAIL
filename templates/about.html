@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>О проекте</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        .frame-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            overflow-y: scroll;
+            height: 500px; /* Adjust the height as needed */
+            perspective: 115px; /* Add perspective */
+            transform: rotateX(37deg) rotateY(7deg); /* Apply 3D rotation */
+            transform-style: preserve-3d; /* Preserve 3D transformations */
+            position: relative; /* Make the container a positioning context */
+        }
+        .frame-container h1, .frame-container h2 {
+            font-size: 1.2em; /* Increase heading size */
+            filter: drop-shadow(70px 25px 6px #000000);
+        }
+        .frame-container p {
+            font-size: 1em; /* Adjust text size as needed */
+            filter: drop-shadow(70px 25px 6px #000000);
+        }
+        .frame-container nav a {
+            margin-right: 10px; /* Add some space between navigation links */
+            filter: drop-shadow(70px 25px 6px #000000);
+        }
+        .frame-container button {
+            margin-top: 20px; /* Add some space above the button */
+            padding: 10px 20px; /* Adjust button size */
+        }
+        .gif-container {
+            position: absolute;
+            right: 20px; /* Position the container 20px from the right edge of the frame */
+            top: 20px; /* Position the container 20px from the top edge of the frame */
+        }
+        .gif-container img {
+            width: 500px; /* Increase the width of the image */
+            height: auto; /* Adjust the height automatically to maintain the aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>О проекте</h1>
+        <nav>
+            {% if 'user_id' in session %}
+                <a href="/">Главная</a>
+                <a href="/inbox">Входящие</a>
+                <a href="/compose">Написать письмо</a>
+                <a href="/settings">Настройки</a>
+                <a href="/logout">Выйти</a>
+            {% else %}
+                <a href="/settings">Настройки</a>
+                <a href="/login">Войти</a>
+            {% endif %}
+        </nav>
+    </header>
+    <div class="frame-container">
+        <h2>О проекте</h2>
+        <p>Локальная почтовая система {{ version }}</p>
+        <h2>Создатели</h2>
+        <p>ISAMO09 - Создатель, админестратор</p>
+        <h2>Список запрещенных слов:</h2>
+        <ul>
+            {% for word in forbidden_words %}
+            <li>{{ word }}</li>
+            {% endfor %}
+        </ul>
+        <button onclick="window.location.href='/terms'">Правила использования</button>
+        <div class="gif-container">
+            <img src="/static/about.gif" alt="О проекте">
+            <p>
+                Добро пожалывать на мой почтовый сервер
+            </p>
+        </div>
+    </div>
+</body>
+</html>

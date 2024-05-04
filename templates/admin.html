@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Админская панель</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .admin-table {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            perspective: 115px;
+            transform: rotateX(31deg) rotateY(7deg);
+            transform-style: preserve-3d;
+            filter: drop-shadow(100px 100px 12px #000000);
+            width: 80%; /* Установите ширину таблицы */
+            max-width: 1200px; /* Установите максимальную ширину таблицы */
+        }
+        .news-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .admin-table table {
+            border-collapse: collapse; /* Добавлено для разграничивающих линий */
+            width: 100%; /* Установите ширину таблицы равной ширине контейнера */
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid #ccc; /* Добавлено для разграничивающих линий */
+            padding: 8px; /* Добавлено для улучшения читаемости */
+        }
+    </style>
+</head>
+<body>
+    <h1>Админская панель</h1>
+    <div class="admin-table">
+        <table>
+            <tr>
+                <th>Имя пользователя</th>
+                <th>Email</th>
+                <th>Статус бана</th>
+                <th>Уровень угрозы</th>
+                <th>Действия</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ 'Забанен' if user[4] else 'Не забанен' }}</td>
+                <td>{{ user[5] }}</td>
+                <td>
+                    {% if user[4] == 0 %}
+                    <a href="/confirm_action/{{ user[0] }}/ban?admin_key={{ admin_key }}">Забанить</a>
+                    {% else %}
+                    <a href="/confirm_action/{{ user[0] }}/unban?admin_key={{ admin_key }}">Разбанить</a>
+                    {% endif %}
+                    <a href="/confirm_action/{{ user[0] }}/delete?admin_key={{ admin_key }}">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
