@@ -1,3 +1,6 @@
 # pythonMAIL
-local mail on python
-to install requirements `pip install Flask`
+local mail on python.
+
+To install requirements `pip install Flask`
+
+To start server `python main.py` 
