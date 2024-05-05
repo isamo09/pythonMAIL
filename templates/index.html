@@ -26,10 +26,10 @@
             margin-bottom: 20px;
             position: relative;
             perspective: 115px;
-            border: 1px solid #ccc; /* Добавлено: рамка вокруг каждой новости */
-            border-radius: 5px; /* Добавлено: скругление углов рамки */
-            padding: 10px; /* Добавлено: внутренний отступ внутри рамки */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Добавлено: тень для рамки */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .news-item img {
             position: absolute;
@@ -46,7 +46,6 @@
             <h1>Добро пожаловать в локальную почмовую систему</h1>
             <nav>
                 {% if session.get('user_id') %}
-                <!-- User is logged in -->
                 <a href="/inbox">Входящие</a>
                 <a href="/compose">Написать письмо</a>
                 <a href="/sent">Отправленные</a>
@@ -54,7 +53,6 @@
                 <a href="/about">О проекте</a>
                 <a href="/logout">Выйти</a>
                 {% else %}
-                <!-- User is not logged in -->
                 <a href="/register">Зарегистрироваться</a>
                 <a href="/login">Войти</a>
                 {% endif %}
@@ -62,7 +60,6 @@
         </header>
         <div id="news-container"></div>
     </div>
-    <!-- Display user's email in the corner -->
     {% if session.get('user_id') %}
     <div class="email-display">
         <p>Ваш email: {{ user_email }}</p>
